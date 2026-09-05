@@ -534,6 +534,15 @@ do
     --  All the info you're looking for is in `:help telescope.setup()`
     --
     defaults = {
+      file_ignore_patterns = {
+        '~$', -- editor backup files ending in ~
+        'bazel%-', -- **/bazel-*/
+        '_bazel', -- **/_bazel*/
+        'build/builder_home/',
+        'pkg/mod/',
+        'artifacts/',
+        'c%-deps/',
+      },
       layout_strategy = 'vertical',
       layout_config = {
         vertical = {
