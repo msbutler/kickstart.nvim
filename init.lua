@@ -361,6 +361,11 @@ do
     },
   }
 
+  -- Git commands (`:Git blame`, `:Git`, etc.) and `:GBrowse`.
+  -- vim-rhubarb teaches `:GBrowse` how to build GitHub URLs.
+  vim.pack.add { gh 'tpope/vim-fugitive' }
+  vim.pack.add { gh 'tpope/vim-rhubarb' }
+
   -- Useful plugin to show you pending keybinds.
   vim.pack.add { gh 'folke/which-key.nvim' }
   require('which-key').setup {
