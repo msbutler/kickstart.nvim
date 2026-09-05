@@ -496,6 +496,12 @@ do
     --
     defaults = {
       layout_strategy = 'vertical',
+      layout_config = {
+        vertical = {
+          preview_cutoff = 0, -- always show the preview, even in short windows
+          preview_height = 0.5, -- split the available height evenly between preview and results
+        },
+      },
       -- mappings = {
       --   i = { ['<c-enter>'] = 'to_fuzzy_refine' },
       -- },
