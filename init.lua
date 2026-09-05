@@ -763,6 +763,7 @@ do
   local servers = {
     -- clangd = {},
     gopls = {},
+    protols = {},
     -- pyright = {},
     -- rust_analyzer = {},
     --
