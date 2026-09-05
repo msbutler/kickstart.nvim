@@ -702,6 +702,12 @@ do
       --  For example, in C this would take you to the header.
       map('grD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
 
+      -- Hover documentation for the symbol under your cursor.
+      -- Force the LSP hover mapping: Neovim only installs its default K->hover
+      -- when 'keywordprg' is unset, but some ftplugins (e.g. Go's `go doc`) set
+      -- it, which shadows hover and breaks on locals.
+      map('K', vim.lsp.buf.hover, 'Hover Documentation')
+
       -- The following two autocommands are used to highlight references of the
       -- word under your cursor when your cursor rests there for a little while.
       --    See `:help CursorHold` for information about when this is executed
