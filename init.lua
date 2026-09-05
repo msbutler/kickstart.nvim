@@ -171,6 +171,10 @@ do
   -- instead raise a dialog asking if you wish to save the current file(s)
   -- See `:help 'confirm'`
   vim.o.confirm = true
+
+  -- What gets saved/restored in sessions (used by auto-session).
+  -- Includes `tabpages` so open tabs are restored per directory.
+  vim.o.sessionoptions = 'blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions'
 end
 
 -- ============================================================
@@ -376,6 +380,13 @@ do
 
   -- Open the fugitive git blame UI for the current file
   vim.keymap.set('n', '<leader>gb', '<cmd>Git blame<CR>', { desc = 'Git [B]lame', silent = true })
+
+  -- Auto-save/restore sessions per directory (tabs, windows, buffers).
+  -- Launch `nvim` with no file argument in a dir to restore its session.
+  vim.pack.add { gh 'rmagatti/auto-session' }
+  require('auto-session').setup {
+    suppressed_dirs = { '~/', '~/Downloads', '/' },
+  }
 
   -- Useful plugin to show you pending keybinds.
   vim.pack.add { gh 'folke/which-key.nvim' }
