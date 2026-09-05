@@ -661,6 +661,14 @@ do
   vim.api.nvim_create_autocmd('LspAttach', {
     group = vim.api.nvim_create_augroup('kickstart-lsp-attach', { clear = true }),
     callback = function(event)
+      -- Detach from buffers with a non-`file://` URI (e.g. fugitive:// blame
+      -- and commit views). Servers like gopls reject those URIs and spam errors.
+      local scheme = vim.api.nvim_buf_get_name(event.buf):match '^(%w[%w+.-]*)://'
+      if scheme and scheme ~= 'file' then
+        vim.schedule(function() vim.lsp.buf_detach_client(event.buf, event.data.client_id) end)
+        return
+      end
+
       -- NOTE: Remember that Lua is a real programming language, and as such it is possible
       -- to define small helper and utility functions so you don't have to repeat yourself.
       --
