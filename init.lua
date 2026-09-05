@@ -445,6 +445,17 @@ do
   ---@diagnostic disable-next-line: duplicate-set-field
   statusline.section_location = function() return '%2l:%-2v' end
 
+  -- Show the git repo's root directory name (e.g. "master") instead of
+  -- the default filetype/encoding info.
+  ---@diagnostic disable-next-line: duplicate-set-field
+  statusline.section_fileinfo = function()
+    local path = vim.api.nvim_buf_get_name(0)
+    local start = path ~= '' and vim.fs.dirname(path) or vim.uv.cwd()
+    local root = vim.fs.root(start, '.git')
+    if not root then return '' end
+    return vim.fs.basename(root)
+  end
+
   -- ... and there is more!
   --  Check out: https://github.com/nvim-mini/mini.nvim
 end
