@@ -366,6 +366,17 @@ do
   vim.pack.add { gh 'tpope/vim-fugitive' }
   vim.pack.add { gh 'tpope/vim-rhubarb' }
 
+  -- Open current line / selection on GitHub
+  vim.keymap.set('n', '<leader>go', ':.GBrowse<CR>', { desc = 'Git [O]pen line on remote', silent = true })
+  vim.keymap.set('v', '<leader>go', ":'<,'>GBrowse<CR>", { desc = 'Git [O]pen lines on remote', silent = true })
+
+  -- Copy the GitHub URL for the current line / selection
+  vim.keymap.set('n', '<leader>gy', ':.GBrowse!<CR>', { desc = 'Git [Y]ank remote URL', silent = true })
+  vim.keymap.set('v', '<leader>gy', ":'<,'>GBrowse!<CR>", { desc = 'Git [Y]ank remote URL', silent = true })
+
+  -- Open the fugitive git blame UI for the current file
+  vim.keymap.set('n', '<leader>gb', '<cmd>Git blame<CR>', { desc = 'Git [B]lame', silent = true })
+
   -- Useful plugin to show you pending keybinds.
   vim.pack.add { gh 'folke/which-key.nvim' }
   require('which-key').setup {
@@ -377,6 +388,7 @@ do
       { '<leader>s', group = '[S]earch', mode = { 'n', 'v' } },
       { '<leader>t', group = '[T]oggle' },
       { '<leader>h', group = 'Git [H]unk', mode = { 'n', 'v' } }, -- Enable gitsigns recommended keymaps first
+      { '<leader>g', group = '[G]it', mode = { 'n', 'v' } },
       { 'gr', group = 'LSP Actions', mode = { 'n' } },
     },
   }
