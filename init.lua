@@ -189,6 +189,19 @@ do
   --  See `:help hlsearch`
   vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 
+  -- Center screen on search results and half-page scrolls
+  vim.keymap.set('n', 'n', 'nzz', { desc = 'Next search result (centered)' })
+  vim.keymap.set('n', 'N', 'Nzz', { desc = 'Prev search result (centered)' })
+  vim.keymap.set('n', '<C-u>', '<C-u>zz', { desc = 'Half-page up (centered)' })
+  vim.keymap.set('n', '<C-d>', '<C-d>zz', { desc = 'Half-page down (centered)' })
+
+  -- `d` deletes to the black-hole register so it doesn't clobber the yank
+  vim.keymap.set({ 'n', 'v' }, 'd', '"_d', { desc = 'Delete (black-hole register)' })
+  vim.keymap.set('n', 'dd', '"_dd', { desc = 'Delete line (black-hole register)' })
+  -- `r`/`rr` is the "real" cut: delete while yanking (non-recursive, so it hits builtin d)
+  vim.keymap.set({ 'n', 'v' }, 'r', 'd', { desc = 'Cut (delete with yank)' })
+  vim.keymap.set('n', 'rr', 'dd', { desc = 'Cut line (delete with yank)' })
+
   -- Diagnostic Config & Keymaps
   --  See `:help vim.diagnostic.Opts`
   vim.diagnostic.config {
