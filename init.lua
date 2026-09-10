@@ -268,6 +268,18 @@ do
     group = vim.api.nvim_create_augroup('kickstart-highlight-yank', { clear = true }),
     callback = function() vim.hl.on_yank() end,
   })
+
+  -- Auto-save when leaving a buffer/window or when the terminal loses focus
+  -- (e.g. switching iTerm panes). Only writes real, modified, named file buffers.
+  vim.api.nvim_create_autocmd({ 'BufLeave', 'WinLeave', 'FocusLost' }, {
+    desc = 'Auto-save on navigate away / focus lost',
+    group = vim.api.nvim_create_augroup('auto-save', { clear = true }),
+    callback = function()
+      if vim.bo.modifiable and vim.bo.modified and vim.bo.buftype == '' and vim.fn.expand '%' ~= '' then
+        vim.cmd 'silent! write'
+      end
+    end,
+  })
 end
 
 -- ============================================================
