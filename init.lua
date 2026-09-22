@@ -564,12 +564,24 @@ do
     defaults = {
       file_ignore_patterns = {
         '~$', -- editor backup files ending in ~
+        '%.git/', -- hidden .git dir (surfaced once hidden=true is set)
         'bazel%-', -- **/bazel-*/
         '_bazel', -- **/_bazel*/
         'build/builder_home/',
         'pkg/mod/',
         'artifacts/',
         'c%-deps/',
+      },
+      -- Search hidden dotfiles/dirs (e.g. .claude/) for grep; .git is filtered above.
+      vimgrep_arguments = {
+        'rg',
+        '--color=never',
+        '--no-heading',
+        '--with-filename',
+        '--line-number',
+        '--column',
+        '--smart-case',
+        '--hidden',
       },
       layout_strategy = 'vertical',
       layout_config = {
@@ -582,7 +594,9 @@ do
       --   i = { ['<c-enter>'] = 'to_fuzzy_refine' },
       -- },
     },
-    -- pickers = {}
+    pickers = {
+      find_files = { hidden = true }, -- include dotfiles/dirs like .claude/ (.git filtered above)
+    },
     extensions = {
       ['ui-select'] = { require('telescope.themes').get_dropdown() },
     },
