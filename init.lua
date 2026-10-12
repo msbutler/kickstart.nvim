@@ -202,6 +202,9 @@ do
   vim.keymap.set({ 'n', 'v' }, 'r', 'd', { desc = 'Cut (delete with yank)' })
   vim.keymap.set('n', 'rr', 'dd', { desc = 'Cut line (delete with yank)' })
 
+  -- Jumplist: <C-o> goes back (older, builtin), <C-n> goes forward (newer, same as <C-i>)
+  vim.keymap.set('n', '<C-n>', '<C-i>', { desc = 'Jump forward (newer) in jumplist' })
+
   -- Diagnostic Config & Keymaps
   --  See `:help vim.diagnostic.Opts`
   vim.diagnostic.config {
