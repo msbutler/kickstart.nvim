@@ -1067,6 +1067,11 @@ do
       end
     end,
   })
+
+  -- Pin the enclosing function signature (and blocks) at the top of the window
+  vim.pack.add { gh 'nvim-treesitter/nvim-treesitter-context' }
+  require('treesitter-context').setup { max_lines = 3 }
+  vim.keymap.set('n', '[c', function() require('treesitter-context').go_to_context(vim.v.count1) end, { desc = 'Jump to enclosing [c]ontext' })
 end
 
 -- ============================================================
